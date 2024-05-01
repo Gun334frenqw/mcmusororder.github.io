@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order System</title>
+</head>
+<body>
+    <h1>Order System</h1>
+    <h2>Items:</h2>
+    <form action="/add_order" method="post">
+        {% for item in items %}
+        <button type="submit" name="item" value="{{ item }}">{{ item }}</button>
+        {% endfor %}
+    </form>
+    <h2>Orders:</h2>
+    <ul>
+        {% for order in orders %}
+        <li>{{ order }}</li>
+        {% endfor %}
+    </ul>
+    <form action="/remove_order" method="post">
+        <input type="text" name="item" placeholder="Item to remove">
+        <button type="submit">Remove Item</button>
+    </form>
+    <form action="/change_mode" method="post">
+        <button type="submit">Change Mode</button>
+    </form>
+</body>
+</html>
