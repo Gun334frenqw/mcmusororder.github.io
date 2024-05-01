@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kitchen - Ordering System</title>
+</head>
+<body>
+  <h1>Kitchen</h1>
+  <ul>
+    <% for _, order in ipairs(orders) do %>
+      <li>
+        <%= order.text %> - <%= order.status %>
+        <% if order.status == "Pending" then %>
+          <a href="<%= url_for("mark_done", { index = _ }) %>">Mark as Done</a>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</body>
+    </html>
