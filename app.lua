@@ -12,7 +12,7 @@ end)
 
 app:post("/order", function(self)
   local order_text = self.params.order
-  table.insert(orders, { text = order_text, status = "Pending" })
+  table.insert(orders, { text = order_text})
   return { redirect_to = self:url_for("cashier") }
 end)
 
