@@ -10,11 +10,6 @@ app:get("/", function(self)
   return { orders = orders }
 end)
 
-app:post("/order", function(self)
-  local order_text = self.params.order
-  table.insert(orders, { text = order_text, status = "Pending" })
-  return { redirect_to = self:url_for("index") }
-end)
 
 app:get("/mark_done/:index", function(self)
   local index = tonumber(self.params.index)
