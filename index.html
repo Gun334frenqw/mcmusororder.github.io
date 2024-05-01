@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ordering System</title>
+</head>
+<body>
+  <h1>Cashier</h1>
+  <form method="post" action="/order">
+    <label for="order">Enter Order:</label><br>
+    <input type="text" id="order" name="order"><br>
+    <input type="submit" value="Submit Order">
+  </form>
 
+  <h1>Kitchen</h1>
+  <ul>
+    <% for _, order in ipairs(orders) do %>
+      <li>
+        <%= order.text %> - <%= order.status %>
+      </li>
+    <% end %>
+  </ul>
+</body>
+    </html>
+      
