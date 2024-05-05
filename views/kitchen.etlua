@@ -1,0 +1,11 @@
+<h1>Kitchen</h1>
+<ul>
+  <% for i, order in ipairs(orders) do %>
+    <li>
+      <%= order.text %>
+      (<a href="/kitchen/<%= i %>?status=done">Mark as done</a> |
+       <a href="/kitchen/<%= i %>?status=delivered">Mark as delivered</a> |
+       <a href="/orders/<%= i %>">Edit</a>)
+    </li>
+  <% end %>
+</ul>
