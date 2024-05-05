@@ -1,35 +1,34 @@
--- app.lua
 local lapis = require("lapis")
 local app = lapis.Application()
 
--- Initialize empty table to store orders
+-- Database to store orders
 local orders = {}
 
--- Define routes
-app:get("/cashier", function(self)
-  return { render = "cashier" }
+-- Action to create a new order
+app:post("/orders", function(self)
+  local order = self.params.order
+  table.insert(orders, {text = order, status = "pending"})
+  return { redirect_to = "/board" }
 end)
 
-app:post("/order", function(self)
-  local order_text = self.params.order
-  table.insert(orders, { text = order_text})
-  return { redirect_to = self:url_for("cashier") }
-end)
-
+-- Action to view orders in the kitchen
 app:get("/kitchen", function(self)
   return { render = "kitchen", orders = orders }
 end)
 
-app:get("/", function(self)
-  return { redirect_to = self:url_for("cashier") } -- Redirect to the cashier page by default
+-- Action to mark an order as done or delivered
+app:post("/kitchen/:id", function(self)
+  local id = tonumber(self.params.id)
+  local order = orders[id]
+  if order then
+    order.status = self.params.status
+  end
+  return { redirect_to = "/kitchen" }
 end)
 
-app:get("/mark_done/:index", function(self)
-  local index = tonumber(self.params.index)
-  if orders[index] then
-    orders[index].status = "Done"
-  end
-  return { redirect_to = self:url_for("kitchen") }
+-- Action to view the board
+app:get("/board", function(self)
+  return { render = "board", orders = orders }
 end)
 
 return app
